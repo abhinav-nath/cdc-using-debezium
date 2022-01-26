@@ -117,6 +117,10 @@ SELECT pg_drop_replication_slot('debezium');
 
 * Insert a new record
 
+  ```sql
+  INSERT INTO products values (1, 'Pen');
+  ```
+
   ```json
   {
     "before": null,
@@ -144,6 +148,10 @@ SELECT pg_drop_replication_slot('debezium');
   }
   ```
 * Update record
+
+  ```sql
+  UPDATE products SET name='Charger' WHERE code=1;
+  ```
 
   ```json
   {
@@ -176,6 +184,10 @@ SELECT pg_drop_replication_slot('debezium');
   ```
 
 * Delete record
+
+  ```sql
+  DELETE FROM products WHERE code=1;
+  ```
 
   ```json
   {
