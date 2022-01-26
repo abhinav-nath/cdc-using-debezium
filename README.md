@@ -89,12 +89,14 @@ UPDATE products SET name='Charger' WHERE code=1;
 
 UPDATE products SET name='Pen' WHERE code=1;
 
-select * from public.products;
+DELETE FROM products WHERE code=1;
+
+SELECT * FROM public.products;
 
 -- clean up
-drop table products;
+DROP TABLE products;
 
-select pg_drop_replication_slot('debezium');
+SELECT pg_drop_replication_slot('debezium');
 ```
 
 ## Kafka commands
@@ -116,17 +118,88 @@ select pg_drop_replication_slot('debezium');
 * Insert a new record
 
   ```json
-  {"before":null,"after":{"code":1,"name":"Pen"},"source":{"version":"1.8.0.Final","connector":"postgresql","name":"testDbServer","ts_ms":1643209693230,"snapshot":"false","db":"testDb","sequence":"[\"24134432\",\"24134848\"]","schema":"public","table":"products","txId":512,"lsn":24134848,"xmin":null},"op":"c","ts_ms":1643209693522,"transaction":null}
+  {
+    "before": null,
+    "after": {
+      "code": 1,
+      "name": "Pen"
+    },
+    "source": {
+      "version": "1.8.0.Final",
+      "connector": "postgresql",
+      "name": "testDbServer",
+      "ts_ms": 1643209693230,
+      "snapshot": "false",
+      "db": "testDb",
+      "sequence": "[\"24134432\",\"24134848\"]",
+      "schema": "public",
+      "table": "products",
+      "txId": 512,
+      "lsn": 24134848,
+      "xmin": null
+    },
+    "op": "c",
+    "ts_ms": 1643209693522,
+    "transaction": null
+  }
   ```
 * Update record
 
   ```json
-  {"before":{"code":1,"name":"Pen"},"after":{"code":1,"name":"Charger"},"source":{"version":"1.8.0.Final","connector":"postgresql","name":"testDbServer","ts_ms":1643209705972,"snapshot":"false","db":"testDb","sequence":"[\"24134848\",\"24135128\"]","schema":"public","table":"products","txId":513,"lsn":24135128,"xmin":null},"op":"u","ts_ms":1643209706215,"transaction":null}
+  {
+    "before": {
+      "code": 1,
+      "name": "Pen"
+    },
+    "after": {
+      "code": 1,
+      "name": "Charger"
+    },
+    "source": {
+      "version": "1.8.0.Final",
+      "connector": "postgresql",
+      "name": "testDbServer",
+      "ts_ms": 1643209705972,
+      "snapshot": "false",
+      "db": "testDb",
+      "sequence": "[\"24134848\",\"24135128\"]",
+      "schema": "public",
+      "table": "products",
+      "txId": 513,
+      "lsn": 24135128,
+      "xmin": null
+    },
+    "op": "u",
+    "ts_ms": 1643209706215,
+    "transaction": null
+  }
   ```
 
 * Delete record
 
   ```json
-  {"before":{"code":1,"name":"Charger"},"after":null,"source":{"version":"1.8.0.Final","connector":"postgresql","name":"testDbServer","ts_ms":1643209815657,"snapshot":"false","db":"testDb","sequence":"[\"24135128\",\"24135328\"]","schema":"public","table":"products","txId":514,"lsn":24135328,"xmin":null},"op":"d","ts_ms":1643209816050,"transaction":null}
-  null
+  {
+    "before": {
+      "code": 1,
+      "name": "Charger"
+    },
+    "after": null,
+    "source": {
+      "version": "1.8.0.Final",
+      "connector": "postgresql",
+      "name": "testDbServer",
+      "ts_ms": 1643209815657,
+      "snapshot": "false",
+      "db": "testDb",
+      "sequence": "[\"24135128\",\"24135328\"]",
+      "schema": "public",
+      "table": "products",
+      "txId": 514,
+      "lsn": 24135328,
+      "xmin": null
+    },
+    "op": "d",
+    "ts_ms": 1643209816050,
+    "transaction": null
+  }
   ```
