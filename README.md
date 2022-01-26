@@ -29,6 +29,20 @@ fulfillment.public.customers
 fulfillment.public.orders
 ```
 
+## [Topic Routing](https://debezium.io/documentation/reference/stable/transformations/topic-routing.html "Topic Routing")
+
+Re-routes records to different topics based on a regular expression applied to the original topic name.
+
+Below setting will re-route messages to this topic - `testDbServer_products`
+
+```json
+"transforms": "route",
+"transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+"transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+"transforms.route.replacement": "$1_$3"
+```
+
+
 ## Create a Debezium connector
 
 POST `http://localhost:8083/connectors`
@@ -50,7 +64,11 @@ POST `http://localhost:8083/connectors`
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schemas.enable": "false",
         "value.converter.schemas.enable": "false",
-        "snapshot.mode": "always"
+        "snapshot.mode": "always",
+        "transforms": "route",
+        "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+        "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+        "transforms.route.replacement": "$1_$3"
     }
 }
 ```
@@ -110,7 +128,7 @@ SELECT pg_drop_replication_slot('debezium');
 ### Kafka Console Consumer
 
 ```
-./kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic testDbServer.public.products --from-beginning --max-messages 10
+./kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic testDbServer_products --from-beginning --max-messages 10
 ```
 
 ## Messages received by the Consumer
