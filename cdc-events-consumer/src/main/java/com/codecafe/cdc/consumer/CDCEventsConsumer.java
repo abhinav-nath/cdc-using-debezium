@@ -32,7 +32,7 @@ public class CDCEventsConsumer {
             Product productAfter = objectMapper.convertValue(message.getAfter(), Product.class);
             Operation operation = message.getOp();
 
-            log.info("productBefore : [{}]\nproductAfter : [{}]\noperation : [{}]", productBefore, productAfter, operation);
+            log.info("\nproductBefore : [{}]\nproductAfter : [{}]\noperation : [{}]", productBefore, productAfter, operation);
         }
     }
 

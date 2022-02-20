@@ -122,13 +122,13 @@ SELECT pg_drop_replication_slot('debezium');
 ### List all topics
 
 ```
-./kafka-topics.sh --bootstrap-server kafka:9092 --list
+kafka-topics --bootstrap-server kafka:9092 --list
 ```
 
 ### Kafka Console Consumer
 
 ```
-./kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic testDbServer_products --from-beginning --max-messages 10
+kafka-console-consumer --bootstrap-server kafka:9092 --topic _schemas --from-beginning --max-messages 10
 ```
 
 ## Messages received by the Consumer
