@@ -233,3 +233,8 @@ kafka-console-consumer --bootstrap-server kafka:9092 --topic _schemas --from-beg
     "transaction": null
   }
   ```
+
+---
+<p align="center">
+  ⭐ Star this repository — it helps!
+</p>
