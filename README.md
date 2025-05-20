@@ -1,5 +1,8 @@
 # Change Data Capture using Debezium and Kafka
 
+This project demonstrates how to implement CDC using Debezium with PostgreSQL and Kafka.
+It captures real-time changes in the database and streams them to a Kafka topic, enabling downstream applications to react to data modifications promptly.
+
 ## Kafka Topics Names
 The PostgreSQL connector writes events for all **insert**, **update**, and **delete** operations on a single table to a **single Kafka topic**.
 
